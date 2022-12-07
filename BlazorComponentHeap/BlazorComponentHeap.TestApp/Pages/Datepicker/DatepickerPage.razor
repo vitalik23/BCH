@@ -1,0 +1,38 @@
+﻿@page "/datepicker"
+@using BlazorComponentHeap.Shared.Models.Datepicker
+
+
+<div style="display: flex;">
+    <BCHCalendar @bind-Value='dateTime'/>
+
+    <BCHRangeCalendar @bind-Values="dateRange"/>
+    @*<button @onclick="ShowDate">show</button>*@
+</div>
+
+@code 
+{
+    DateTime dateTime = DateTime.Now;
+
+    DateRange dateRange = new(); 
+
+    private void ShowDate()
+    {
+        Console.WriteLine(dateTime);
+        Console.WriteLine($"Start - {dateRange.Start}");
+        Console.WriteLine($"End - {dateRange.End}");
+    }
+}
+
+<style>
+    html {
+        height: 100%;
+    }
+
+    body {
+        height: 100%;
+    }
+
+    #app {
+        height: 100%;
+    }
+</style>

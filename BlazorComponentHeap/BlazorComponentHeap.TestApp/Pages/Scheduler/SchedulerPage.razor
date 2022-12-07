@@ -1,0 +1,43 @@
+﻿@page "/scheduler"
+
+<div class="page-cnt">
+    <BCHScheduler Appointments="_appointments"
+                  ShowDatePicker="true"
+                  ShowTodayButton="true"
+                  Gap="8px" >
+
+        <BCHAppointmentItem Key="type-1">
+            <Template Context="appointment">
+                <div class="type-1">
+                    <div class="start">Start: @appointment.Start</div>
+                    <div class="end">End: @appointment.End</div>
+                    <div class="name">Name: @((string)appointment.Payload)</div>
+                </div>
+            </Template>
+        </BCHAppointmentItem>
+
+        <BCHAppointmentItem Key="type-2">
+            <Template Context="appointment">
+                <div class="type-2">
+                    <div class="difference">Diff: @(appointment.End - appointment.Start)</div>
+                    <div class="count">Count: @((int)appointment.Payload)</div>
+                </div>
+            </Template>
+        </BCHAppointmentItem>
+
+    </BCHScheduler>
+</div>
+
+<style>
+    html {
+        height: 100%;
+    }
+
+    body {
+        height: 100%;
+    }
+
+    #app {
+        height: 100%;
+    }
+</style>

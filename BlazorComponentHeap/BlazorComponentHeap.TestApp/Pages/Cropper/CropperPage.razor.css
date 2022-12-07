@@ -1,0 +1,19 @@
+
+.page-cnt {
+    top: 10px;
+    left: 10px;
+    position: absolute;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    /*width: 200px;*/
+    /*height: 200px;*/
+    display: flex;
+    flex-direction: column;
+
+    filter: drop-shadow(0px 0px 8px rgba(32, 32, 32, 0.03)) drop-shadow(0px 4px 13px rgba(32, 32, 32, 0.05));
+}
+
+.page-cnt > .cropper-wrapper {
+    flex: 1 1;
+    display: flex;
+}

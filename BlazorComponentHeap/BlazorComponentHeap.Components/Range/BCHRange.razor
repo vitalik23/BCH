@@ -1,0 +1,39 @@
+﻿@if (Vertical)
+{
+    <div class="bch-vertical-range-container"
+         id="@_containerId"
+    @onmousedown="OnContainerVerticalMouseDown"
+    @ontouchstart="OnContainerVerticalTouchDown">
+        <div class="bch-range-circle"
+             id="@_circleId"
+             style="transform: translate(-6px, @(GetBottomOffset())px);"
+        @onmousedown="OnVerticalMouseDownAsync"
+        @ontouchstart="OnVerticalTouchStartAsync">
+            <div class="bch-range-tooltip" style="left: @(_thumbWidth)px; @(ShowTooltip && _showTooltip ? "" : "display: none;")">
+                <label class="noselectable-text">@Math.Round(_value, AfterPointCountNumber)</label>
+            </div>
+
+        </div>
+        <div class="bch-fill-color" style="height: @(((((_value - Min) / (Max - Min)) * _containerHeight) + (_thumbHeight / 2)).ToString(_nF))px; @(!ShowFillColor ? "display: none;" : "")"></div>
+    </div>
+}
+else
+{
+    <div class="bch-gorizontal-range-container"
+         id="@_containerId"
+    @onmousedown="OnContainerGorizontalMouseDown"
+    @ontouchstart="OnContainerGorizontalTouchDown">
+        <div class="bch-range-circle"
+             id="@_circleId"
+        @onmousedown="OnGorizontalMouseDownAsync"
+        @ontouchstart="OnGorizontalTouchStartAsync"
+             style="transform: translate(@(GetLeftOffset())px, 0px);">
+
+            <div class="bch-range-tooltip" style="top: -@(_thumbHeight)px; @(ShowTooltip && _showTooltip ? "" : "display: none;")">
+                <label class="noselectable-text">@Math.Round(_value, AfterPointCountNumber) @TypeValue</label>
+            </div>
+
+        </div>
+        <div class="bch-fill-color" style="width: @(GetFillOffsetX())px; @(!ShowFillColor ? "display: none;" : "")"></div>
+    </div>
+}

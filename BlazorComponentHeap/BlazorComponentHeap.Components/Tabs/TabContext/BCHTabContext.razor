@@ -1,0 +1,7 @@
+﻿@if (_subscriptionService.IsSubscriptionActivated)
+{
+    <div id="@_id"
+        class="bch-tab-dragzone-container @TabContext.ClassIndetifier">
+        @ChildContent
+    </div>
+}

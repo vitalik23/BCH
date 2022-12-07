@@ -1,0 +1,88 @@
+﻿<div class="page-cnt">
+
+    <BCHTabContext TabContext="_context">
+
+        <div class="test-page-container">
+            <div class="tab-panel">
+                <div class="tabs">
+                    <BCHTabPanel TabContext="_context"
+                               PanelId="0"
+                               MinimalTabsCount="1"
+                               ScrollTabWidth="100"
+                               SelectOnDragAndDrop="false"
+                               ScrollToCenterOnClick="true" />
+                </div>
+                <div class="content">
+                    <BCHTabContent TabContext="_context"
+                                 PanelId="0">
+                        <Template Context="selectedTab">
+                            @(selectedTab != null ? selectedTab.Name : "")
+                        </Template>
+                    </BCHTabContent>
+                </div>
+            </div>
+
+            <div class="tab-panel">
+                <div class="tabs">
+                    <BCHTabPanel TabContext="_context"
+                               PanelId="1"
+                               MinimalTabsCount="1"
+                               ScrollTabWidth="150"
+                               SelectOnDragAndDrop="false"
+                               ScrollToCenterOnClick="true" />
+                </div>
+                <div class="content">
+                    <BCHTabContent TabContext="_context"
+                                 PanelId="1">
+                        <Template Context="selectedTab">
+                            @(selectedTab != null ? selectedTab.Name : "")
+                        </Template>
+                    </BCHTabContent>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="test-page-container">
+            <div class="tab-panel">
+                <div class="tabs">
+                    <BCHTabPanel TabContext="_context"
+                               PanelId="2"
+                               MinimalTabsCount="1"
+                               ScrollTabWidth="100"
+                               SelectOnDragAndDrop="false"
+                               ScrollToCenterOnClick="true" />
+                </div>
+                <div class="content">
+                    <BCHTabContent TabContext="_context"
+                                 PanelId="2">
+                        <Template Context="selectedTab">
+                            @(selectedTab != null ? selectedTab.Name : "")
+                        </Template>
+                    </BCHTabContent>
+                </div>
+            </div>
+
+            <div class="tab-panel">
+                <div class="tabs">
+                    <BCHTabPanel TabContext="_context"
+                               PanelId="3"
+                               MinimalTabsCount="1"
+                               ScrollTabWidth="150"
+                               SelectOnDragAndDrop="false"
+                               ScrollToCenterOnClick="true" />
+                </div>
+                <div class="content">
+                    <BCHTabContent TabContext="_context"
+                                 PanelId="3">
+                        <Template Context="selectedTab">
+                            @(selectedTab != null ? selectedTab.Name : "")
+                        </Template>
+                    </BCHTabContent>
+                </div>
+            </div>
+
+        </div>
+
+    </BCHTabContext>
+</div>

@@ -1,0 +1,33 @@
+@page "/cropper"
+@using BlazorComponentHeap.Components.Models.Cropper
+@using BlazorComponentHeap.Components.Models.Zoom
+
+<div class="page-cnt">
+    <div class="cropper-wrapper">
+        <BCHCropper @ref="_bchCropper"
+                    Quality="1.0f"
+                    BackgroundColor="green"
+                    CropperType="CropperType.MovableRectangle"
+                    CroppedWidth="200"
+                    Base64Image="_content/BlazorComponentHeap.Components/img/cropper/an225_mriya.jpg"
+                    Ratio="@(16.0f / 9.0f)"
+                    ViewMode="ViewMode.StretchToBorders"
+                    MinRectangleWidth="100"
+                    MinRectangleHeight="100"/>
+    </div>
+    <button @onclick="OnGetResultAsync">Get Result</button>
+</div>
+
+<style>
+    html {
+        height: 100%;
+    }
+
+    body {
+        height: 100%;
+    }
+
+    #app {
+        height: 100%;
+    }
+</style>

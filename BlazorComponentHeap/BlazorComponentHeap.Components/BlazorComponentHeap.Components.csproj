@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BlazorComponentHeap.Core\BlazorComponentHeap.Core.csproj" />
+    <ProjectReference Include="..\BlazorComponentHeap.Shared\BlazorComponentHeap.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Carousel\" />
+    <None Remove="RadioButton\" />
+    <None Remove="RadioButton\RadioButtonsContainer\" />
+    <None Remove="RadioButton\RadioButton\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="RadioButton\" />
+    <Folder Include="RadioButton\RadioButtonsContainer\" />
+    <Folder Include="RadioButton\RadioButton\" />
+  </ItemGroup>
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Test\TestPage.razor" />
+  </ItemGroup>
+</Project>

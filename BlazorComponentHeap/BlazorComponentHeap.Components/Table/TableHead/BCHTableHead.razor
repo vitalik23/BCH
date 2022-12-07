@@ -1,0 +1,99 @@
+﻿@using BlazorComponentHeap.Shared.Enums.Table
+@typeparam TRowData
+
+
+<div class="bch-table-head-container">
+    <div class="head-name">
+        @if (Column.IsSorted)
+        {
+            <img class="bch-sort-checkbox"
+             @onclick="async () => { await OnSortedAsync(Column.FilterProperty); }"
+             src="_content/BlazorComponentHeap.Components/img/table/arrow-top-bottom-sort.svg" />
+        }
+        <label class="title">@Title</label>
+    </div>
+
+    <div class="head-filtering">
+
+        @if (Column.FilterType == ColumnFilterType.TextSearch)
+        {
+            <input placeholder="Search"
+               class="bch-input-text"
+               type="text"
+               @oninput="async (e) => { await OnFilterAsync(e, Column.FilterProperty); }" />
+        }
+        @if (Column.FilterType == ColumnFilterType.NumberSearch)
+        {
+            <input placeholder="Search"
+               class="bch-input-number"
+               type="number" @oninput="async (e) => { await OnFilterAsync(e, Column.FilterProperty); }" />
+        }
+        @if (Column.FilterType == ColumnFilterType.Select)
+        {
+            <BCHSelect TItem="string"
+                   DefaultText="All"
+                   ElementNamePredicate="x => x"
+                   Options="Column.SelectData"
+                   SelectedChanged="async (e) => { await OnSelectedAsync(e, Column.FilterProperty); }" />
+        }
+        @if (Column.FilterType == ColumnFilterType.MultiSelect)
+        {
+            <BCHSelect TItem="string"
+                   ElementNamePredicate="x => x"
+                   Options="Column.SelectData"
+                   DefaultText="All"
+                   MultipleSelect="true"
+                   SelectedItems="_selectedItems"
+                   OnSelectItem="async (e) => { await OnSelectedAsync(Column.FilterProperty); }"
+                   OnDeselectItem="async (e) => { await OnSelectedAsync(Column.FilterProperty); }" />
+        }
+        @if (Column.FilterType == ColumnFilterType.DateRange)
+        {
+            @*<input type="date" multiple @oninput="async (e) => { await OnFilterAsync(e, Column.FilterProperty); }" />*@
+
+            <BCHRangeCalendar ValuesChanged="async (e) => { await OnSelectDateAsync(e, Column.FilterProperty); }" />
+        }
+        @if (Column.FilterType == ColumnFilterType.Date)
+        {
+            @*<input type="date" @oninput="async (e) => { await OnFilterAsync(e, Column.FilterProperty); }" />*@
+            <BCHCalendar ValueChanged="async (e) => { await OnSelectDateAsync(e, Column.FilterProperty); }" />
+        }
+    </div>
+</div>
+
+<style>
+    .bch-select-container {
+        height: 40px !important;
+        border: 1px solid #E9EAEC;
+        border-radius: 10px;
+        filter: none !important;
+    }
+
+        .bch-select-container > .bch-content {
+            top: 39px !important;
+            border: 1px solid #E9EAEC;
+            border-top: unset !important;
+        }
+
+        .bch-select-container .bch-button label {
+            font-size: 12px !important;
+            color: rgba(19, 18, 18, 0.6) !important;
+        }
+
+    .bch-datepicker {
+        height: 40px !important;
+        border: 1px solid #E9EAEC !important;
+        border-radius: 10px !important;
+        box-shadow: none !important;
+    }
+
+        .bch-datepicker .bch-datepicker-input {
+            font-size: 12px !important;
+            color: rgba(19, 18, 18, 0.6) !important;
+        }
+
+        .bch-datepicker .bch-datepicker-img {
+            content: url("_content/BlazorComponentHeap.Components/img/table/calendar-icon.svg") !important;
+        }
+</style>
+

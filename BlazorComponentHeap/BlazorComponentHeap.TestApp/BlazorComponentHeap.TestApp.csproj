@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.6" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BlazorComponentHeap.Core\BlazorComponentHeap.Core.csproj" />
+    <ProjectReference Include="..\BlazorComponentHeap.Components\BlazorComponentHeap.Components.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Pages\Carousel\" />
+    <None Remove="Pages\RadioButtons\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\Carousel\" />
+    <Folder Include="Pages\RadioButtons\" />
+  </ItemGroup>
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\sample-data\weather.json" />
+  </ItemGroup>
+</Project>

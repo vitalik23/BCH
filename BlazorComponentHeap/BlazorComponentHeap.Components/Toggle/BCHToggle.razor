@@ -1,0 +1,26 @@
+﻿<div class="bch-toggle" id="@_toggleId">
+    <input type="checkbox"
+           class="toggle-button @(Disabled ? "toggle-disabled" : "")"
+           style=""
+           checked="@Value"
+           @bind-value="@Value">
+    <label for="toggle-button" class="text noselectable-text @(Disabled ? "text-disabled" : "")">@Label</label>
+</div>
+
+<style>
+    #@_toggleId > .toggle-button{
+        background: @(string.IsNullOrWhiteSpace(DefaultBackgroundColor) ? "#D7D7D7" : DefaultBackgroundColor);
+    }
+
+        #@_toggleId > .toggle-button::after{
+            background-color: @(string.IsNullOrWhiteSpace(DefaultCircleColor) ? "#FFFFFF" : DefaultCircleColor);
+        }
+
+        #@_toggleId > .toggle-button:checked::after{
+            background-color: @(string.IsNullOrWhiteSpace(CheckedCircleColor) ? "#fff" : CheckedCircleColor);
+        }
+
+        #@_toggleId > .toggle-button:checked{
+            background-color: @(string.IsNullOrWhiteSpace(CheckedBackgroundColor) ? "#33B469" : CheckedBackgroundColor);
+        }
+</style>

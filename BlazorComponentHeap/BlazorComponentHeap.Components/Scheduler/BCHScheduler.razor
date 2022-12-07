@@ -1,0 +1,128 @@
+﻿@if (_subscriptionService.IsSubscriptionActivated)
+{
+    <CascadingValue IsFixed="true" Value="this">@ChildContent</CascadingValue>
+
+    <div class="bch-calendar-container">
+
+        @if (ShowDatePicker || ShowTodayButton)
+        {
+            <div class="bch-date-picker">
+
+                @if (ShowDatePicker)
+                {
+                    <BCHCalendar Value="_calendarDateTime" ValueChanged="OnDateChanged"/>
+                }
+
+                @if (ShowTodayButton)
+                {
+                    <div class="today-btn noselectable-text" @onclick="OnTodayClicked">Today</div>
+                }
+
+            </div>
+        }
+
+        <div class="bch-dateline">
+
+            <div class="bch-corner"></div>
+
+            <div class="dates-holder">
+                <div class="bch-scroller" style="@($"left: {_scrollIndex * -100}%;")">
+                    @{
+                        var j = -7 + (_scrollIndex * 7);
+
+                        for (
+                            var date = _currentWeekStart.AddDays(-7 + (_scrollIndex * 7));
+                            date < _currentWeekStart.AddDays(14 + (_scrollIndex * 7));
+                            date = date.AddDays(1), j++)
+                        {
+                            <div class="date"
+                                 style="@($"left: calc({j} * (100% / 7));")">
+                                <div class="day noselectable-text">@date.Day</div>
+                                <div class="month noselectable-text">@GetMonthLabel(date.Month)</div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="scroll-btn left">
+                <span @onclick="() => { OnWeekButtonClicked(false); }"></span>
+            </div>
+
+            <div class="scroll-btn right">
+                <span @onclick="() => { OnWeekButtonClicked(true); }"></span>
+            </div>
+
+        </div>
+
+        <div class="calendar-data scroll">
+
+            <div class="bch-scroller">
+
+                <div class="timeline">
+                    @for (int i = 0; i < 24; i++)
+                    {
+                        <div class="hour" style="@($"height: {ItemHeight};")">
+                            <div class="time">
+                                <div class="text noselectable-text">@GetTimeLabel(i)</div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="calendar">
+
+                    <div class="bch-scroller" style="@($"left: {_scrollIndex * -100}%;")">
+                        @for (int i = 0; i < 23; i++)
+                        {
+                            <div class="delimiter-horizontal"
+                                 style="@($"height: {ItemHeight};" + $"top: calc({ItemHeight} * {i});" + $"left: {_scrollIndex * 100 - 100}%;")">
+                            </div>
+                        }
+
+                        @for (int i = -7 + (_scrollIndex * 7); i < 14 + (_scrollIndex * 7); i++)
+                        {
+                            <div class="delimiter-vertical"
+                                 style="@($"width: 14.285714%;" + $"left: calc(14.285714% * {i});")">
+                            </div>
+                        }
+
+                        @{
+                            int k = -7 + (_scrollIndex * 7);
+
+                            for (var date = _currentWeekStart.AddDays(-7 + (_scrollIndex * 7)); date < _currentWeekStart.AddDays(14 + (_scrollIndex * 7)); date = date.AddDays(1), k++)
+                            {
+                                if (_days.TryGetValue(date.Date, out var day))
+                                {
+                                    foreach (var group in day.Groups)
+                                    {
+                                        for (int i = 0; i < group.Appointments.Count; i++)
+                                        {
+                                            var apointment = group.Appointments[i];
+
+                                            <div class="appointment"
+                                                 style="@($"top: calc(4.1667% * {GetTimeNumber(apointment.Start).ToString(_numberFormatWithDot)});" + $"left: calc(14.285714% * {k} + ({i} * (14.285714% / {group.Appointments.Count})));" + $"width: calc(14.285714% / {group.Appointments.Count});" + $"height: calc(4.1667% * {(GetTimeNumber(apointment.End) - GetTimeNumber(apointment.Start)).ToString(_numberFormatWithDot)});" + $"margin: calc({Gap} * 0.5);")">
+                                                <div class="appointment-content"
+                                                     style="@($"width: calc(100% - {Gap});" + $"height: calc(100% - {Gap});")">
+
+                                                    <div class="bch-border" style="@($"background: {apointment.LineColor};")"></div>
+                                                    <div class="bch-template"
+                                                         style="@($"background: {apointment.BackgroundColor};" + $"opacity: {apointment.Opacity.ToString(_numberFormatWithDot)}")">
+                                                        @if (_appointmentTemplates.TryGetValue(apointment.TemplateKey, out var appointmentItem))
+                                                        {
+                                                            @appointmentItem.Template(apointment)
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,108 @@
+﻿@typeparam TRowData
+
+@if (_subscriptionService.IsSubscriptionActivated)
+{
+    <CascadingValue IsFixed="true" Value="this">@ChildContent</CascadingValue>
+
+    <div class="bchtable-container">
+        <table class="bchtable-wrapper" style="@(string.IsNullOrWhiteSpace(MinWidth) ? "" : $"min-width:{MinWidth};")">
+            <thead class="bch-thead">
+                <tr>
+                    @foreach (var column in columns)
+                    {
+                        <th style="@(string.IsNullOrWhiteSpace(column.Width) ? "" : $"width: {column.Width};") ">
+                            @if (column.ThTemplate != null)
+                            {
+                                @column.ThTemplate
+                            }
+                            else
+                            {
+                                <BCHTableHead TRowData="TRowData"
+                                  Title="@column.Title"
+                                  Column="@column"
+                                  OnFilterData="async (e) => { await OnFilterData.InvokeAsync(e); }"
+                                  OnClickSorted="async (e) => { await OnClickSorted.InvokeAsync(e); }" />
+                            }
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody class="bch-tbody" @onextscroll="OnScrollAsync">
+                @{
+                    if (Items != null)
+                    {
+                                    @*var index = 0;*@
+                        foreach (var item in Items)
+                        {
+                                        @*c Use @key to help the diff algorithm when updating the collection *@
+                                        <tr @key="item.GetHashCode()">
+                                            @foreach (var column in columns)
+                                {
+                                                <td style="@(string.IsNullOrWhiteSpace(column.Width) ? "" : $"width: {column.Width};") ">
+                                                    @if (column.TdTemplate != null)
+                                        {
+                                                        @column.TdTemplate(item)
+                                        }
+                                        else
+                                        {
+                                                        <BCHTableData Item="@item" TRowData="@TRowData" Expression="@column.Expression" />
+                                        }
+                                                </td>
+                                }
+                                        </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (IsPagination && !IsScrollPagination)
+    {
+        <div style="width: 100%; border: 1px solid green;">
+            <button @onclick="async () => { await OnPaginationAsync(false); }">previous</button>
+            @for (int i = 1; i <= Items?.Count; i++)
+            {
+                int _i = i;
+                <label @onclick="async () => { await OnSelectPageNumberAsync(_i); }">@i</label>
+            }
+            <button @onclick="async () => { await OnPaginationAsync(true); }">next</button>
+        </div>
+    }
+}
+
+<style>
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 7px;
+        height: 7px;
+        border-radius: 5px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #33B469;
+        border-radius: 5px;
+    }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #33B469;
+            transform: scale(0.2);
+            transition: 0.2s;
+        }
+
+    .bchtable-container .bchtable-wrapper .bch-thead tr th:first-child .bch-table-head-container .head-name{
+        border-top-left-radius: 10px;
+    }
+
+    .bchtable-container .bchtable-wrapper .bch-thead tr th:last-child .bch-table-head-container .head-name{
+        border-top-right-radius: 10px;
+    }
+</style>

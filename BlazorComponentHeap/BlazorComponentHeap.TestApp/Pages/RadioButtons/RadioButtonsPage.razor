@@ -1,0 +1,48 @@
+﻿@page "/radio-buttons"
+
+<div class="page-cnt">
+    <BCHRadioButtonsContainer>
+        <BCHRadioButton Text="rb1-1" Disabled="true"/>
+        <BCHRadioButton Text="rb2-1" />
+        <BCHRadioButton Text="rb3-1" />
+        <BCHRadioButton Text="rb4-1" />
+    </BCHRadioButtonsContainer>
+
+    <br />
+
+    <BCHRadioButtonsContainer>
+        <BCHRadioButton Text="rb1-2" />
+        <BCHRadioButton>
+            <DataTemplate>
+                <h3>my-custom-data-text</h3>
+            </DataTemplate>
+        </BCHRadioButton>
+        <BCHRadioButton Text="rb3-2" />
+        <BCHRadioButton Text="rb4-2" />
+        <BCHRadioButton Text="rb5-2">
+            <CircleTemplate Context="selected">
+                <div style="width: 20px; height: 20px; background: @(selected ? "red" : "black");"></div>
+            </CircleTemplate>
+        </BCHRadioButton>
+        <BCHRadioButton Text="rb6-2" />
+        <BCHRadioButton>
+            <ContentTemplate Context="selected">
+                <div style="color: @(selected ? "red" : "");">custom-text</div>
+            </ContentTemplate>
+        </BCHRadioButton>
+    </BCHRadioButtonsContainer>
+</div>
+
+<style>
+    html {
+        height: 100%;
+    }
+
+    body {
+        height: 100%;
+    }
+
+    #app {
+        height: 100%;
+    }
+</style>

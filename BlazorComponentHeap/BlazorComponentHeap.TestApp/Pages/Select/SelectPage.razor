@@ -1,0 +1,74 @@
+﻿@page "/select"
+@using BlazorComponentHeap.Components.Select
+
+<div class="select-container">
+    <div class="wrapper">
+
+        <BCHSelect TItem="string"
+                   Options="_emptyList"
+                   Height="300"
+                   Filtering="true"
+                   Grouping="true"
+                   ScrollToSelected="true"
+                   ElementNamePredicate="x => x"
+                   GroupPredicate='x => x.Contains("s") ? "Even" : (x.Contains("tt") ? "TT" : "Odd")'
+                   GroupNamePredicate='x => x.Contains("s") ? "Even" : (x.Contains("tt") ? "TT" : "Odd")'/>
+
+        <BCHSelect TItem="string"
+                   Options="_items"
+                   Height="300"
+                   Filtering="true"
+                   Grouping="true"
+                   ScrollToSelected="true"
+                   ElementNamePredicate="x => x"
+                   GroupPredicate='x => x.Contains("s") ? "Even" : (x.Contains("tt") ? "TT" : "Odd")'
+                   GroupNamePredicate='x => x.Contains("s") ? "Even" : (x.Contains("tt") ? "TT" : "Odd")'/>
+
+        <BCHSelect TItem="string"
+                   Options="_items"
+                   Height="300"
+                   Filtering="false"
+                   Grouping="true"
+                   ElementNamePredicate="x => x"
+                   GroupPredicate='x => x.Contains("s")'
+                   GroupNamePredicate='x => x.Contains("s") ? "Even" : "Odd"'/>
+
+        <BCHSelect TItem="string"
+                   Options="_items"
+                   Height="300"
+                   Filtering="true"
+                   Grouping="true"
+                   MultipleSelect="true"
+                   ElementNamePredicate="x => x"
+                   GroupPredicate='x => x.Contains("s")'
+                   GroupNamePredicate='x => x.Contains("s") ? "Even" : "Odd"'
+                   SelectedItems="_selectedItems"/>
+
+        <BCHSelect TItem="string"
+                   Options="_items"
+                   Height="300"
+                   Filtering="false"
+                   Grouping="true"
+                   MultipleSelect="true"
+                   ElementNamePredicate="x => x"
+                   GroupPredicate='x => x.Contains("s")'
+                   GroupNamePredicate='x => x.Contains("s") ? "Even" : "Odd"'
+                   SelectedItems="_selectedItems"/>
+
+    </div>
+
+</div>
+
+<style>
+    html {
+        height: 100%;
+    }
+
+    body {
+        height: 100%;
+    }
+
+    #app {
+        height: 100%;
+    }
+</style>
